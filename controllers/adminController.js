@@ -4,6 +4,7 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 const fs = require('fs')
 const db = require('../models')
 const Restaurant = db.Restaurant
+const Category = db.Category
 const User = db.User
 
 const adminController = {
@@ -12,19 +13,6 @@ const adminController = {
       return res.render('admin/users', { users })
     })
   },
-  // putUsers: (req, res) => {
-  //   return User.findByPk(req.params.id)
-  //     .then((user) => {
-  //       return user.update({
-  //         isAdmin: req.body.isAdmin === 'true'
-  //       })
-  //         .then((user) => {
-  //           console.log(user)
-  //           req.flash('success_messages', `${user.name} was successfully to update`)
-  //           res.redirect('/admin/users')
-  //         })
-  //     })
-  // },
   putUsers: (req, res) => {
     User.findByPk(req.params.id)
       .then((user) => {
@@ -44,13 +32,21 @@ const adminController = {
       })
   },
   getRestaurants: (req, res) => {
-    return Restaurant.findAll({ raw: true }).then(restaurants => {
+    return Restaurant.findAll({
+      raw: true,
+      nest: true,
+      include: [Category]
+    }).then(restaurants => {
       return res.render('admin/restaurants', { restaurants })
     })
   },
   getRestaurant: (req, res) => {
-    return Restaurant.findByPk(req.params.id, { raw: true }).then(restaurant => {
-      return res.render('admin/restaurant', { restaurant })
+    return Restaurant.findByPk(req.params.id, {
+      include: [Category]
+    }).then(restaurant => {
+      return res.render('admin/restaurant', {
+        restaurant: restaurant.toJSON()
+      })
     })
   },
   createRestaurant: (req, res) => {
