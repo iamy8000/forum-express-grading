@@ -6,6 +6,7 @@ const restController = require('../controllers/restController.js')
 const adminController = require('../controllers/adminController')
 const userController = require('../controllers/userController')
 const categoryController = require('../controllers/categoryController')
+const commentController = require('../controllers/commentController')
 
 module.exports = (app, passport) => {
   const authenticated = (req, res, next) => {
@@ -23,9 +24,11 @@ module.exports = (app, passport) => {
   }
 
   app.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
-  
+
   app.get('/restaurants', authenticated, restController.getRestaurants)
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
+
+  app.post('/comments', authenticated, commentController.postComment)
 
 
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants')) // 連到 /admin 頁面就轉到 /admin/restaurants
