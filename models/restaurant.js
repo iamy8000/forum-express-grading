@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Restaurant.belongsTo(models.Category)
+      Restaurant.hasMany(models.Comment)
     }
   };
   Restaurant.init({
