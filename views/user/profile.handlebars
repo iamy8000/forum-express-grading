@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-4">
+    <img class="img-responsive center-block" src="{{profile.image}}" alt="使用者頭貼"
+      style="width: 250px;margin-bottom: 25px;">
+  </div>
+
+  <div class="col-md-8">
+    <h1>{{profile.name}}</h1>
+    <br>
+    <div class="well">
+      <ul class="list-unstyled">
+        <li><strong>Email:</strong> {{profile.email}}</li>
+      </ul>
+    </div>
+    {{#ifCond profile.id user.id}}
+    <a href="/users/{{profile.id}}/edit">
+      <button type="button" class="btn btn-primary">
+        Edit
+      </button>
+    </a>
+    {{/ifCond}}
+  </div>
+</div>
+
+<br />
+<br />
+<a href="javascript:history.back()">回上一頁</a>

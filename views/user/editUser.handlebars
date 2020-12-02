@@ -1,0 +1,16 @@
+<form class="form" action="/users/{{user.id}}?_method=PUT" method="POST" enctype="multipart/form-data"
+  style="width: 100%;">
+  <div class="text-center mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">Edit Profile</h1>
+  </div>
+  <div class="form-group">
+    <label for="inputName">Name</label>
+    <input type="text" name="name" class="form-control" value="{{user.name}}" placeholder="Name" required autofocus>
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="image">Image</label>
+    <input type="file" class="form-control-file" id="image" name="image">
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
