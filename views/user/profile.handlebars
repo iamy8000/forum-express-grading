@@ -1,27 +1,58 @@
 <div class="row">
-  <div class="col-md-4">
-    <img class="img-responsive center-block" src="{{profile.image}}" alt="使用者頭貼"
-      style="width: 250px;margin-bottom: 25px;">
-  </div>
-
-  <div class="col-md-8">
-    <h1>{{profile.name}}</h1>
-    <br>
-    <div class="well">
-      <ul class="list-unstyled">
-        <li><strong>Email:</strong> {{profile.email}}</li>
-      </ul>
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="row no-gutters">
+        <div class="col-md-3">
+          <img class="card-img img-responsive center-block" src="{{profile.image}}" alt="使用者頭貼" style="width: 250px;">
+        </div>
+        <div class=" col-md-9">
+          <div class="card-body">
+            <h1 class="card-title">{{profile.name}}</h1>
+            <div class="well">
+              <ul class="list-unstyled">
+                <li><strong>Email:</strong> {{profile.email}}</li>
+              </ul>
+            </div>
+            <p class="card-text"><small class="text-muted">Update at {{moment profile.updatedAt}}</small></p>
+            {{#ifCond profile.id user.id}}
+            <a href="/users/{{profile.id}}/edit">
+              <button type="button" class="btn btn-primary">
+                Edit
+              </button>
+            </a>
+            {{/ifCond}}
+          </div>
+        </div>
+      </div>
     </div>
-    {{#ifCond profile.id user.id}}
-    <a href="/users/{{profile.id}}/edit">
-      <button type="button" class="btn btn-primary">
-        Edit
-      </button>
-    </a>
-    {{/ifCond}}
+  </div>
+  <div class="col-md-12">
+    <div class="card">
+      {{#if comments}}
+      <h5 class="card-header">{{profile.name}}已評論餐廳</h5>
+      {{else}}
+      <h5 class="card-header">{{profile.name}}尚未評論餐廳</h5>
+      {{/if}}
+      {{#if comments}}
+      <div class="card-body">
+        <div class="row">
+          {{#each comments}}
+          <div class="col-md-3 mb-1">
+            <div class="card">
+              <a href="/restaurants/{{this.Restaurant.id}}">
+                <img src="{{this.Restaurant.image}}" class="card-img-top" alt="餐廳照片">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">{{this.Restaurant.name}}</h5>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+      {{/if}}
+    </div>
   </div>
 </div>
-
-<br />
-<br />
+<hr />
 <a href="javascript:history.back()">回上一頁</a>

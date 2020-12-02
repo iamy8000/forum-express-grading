@@ -3,9 +3,12 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
 
 const bcrypt = require('bcryptjs')
 const db = require('../models')
-const { putRestaurant } = require('./adminController')
-const User = db.User
 const fs = require('fs')
+const { putRestaurant } = require('./adminController')
+const comment = require('../models/comment')
+const User = db.User
+const Comment = db.Comment
+const Restaurant = db.Restaurant
 
 const userController = {
   signUpPage: (req, res) => {
@@ -47,10 +50,18 @@ const userController = {
     res.redirect('/signin')
   },
   getUser: (req, res) => {
-    return User.findByPk(req.params.id, { raw: true })
-      .then(user => {
-        return res.render('user/profile', { profile: user })
-      })
+    Comment.findAll({
+      raw: true,
+      nest: true,
+      where: { UserId: req.params.id },
+      include: [Restaurant]
+    }).then(comments => {
+      return User.findByPk(req.params.id, { raw: true })
+        .then(user => {
+          return res.render('user/profile', { profile: user, comments: comments })
+        })
+    })
+
   },
   editUser: (req, res) => {
     return User.findByPk(req.params.id, { raw: true })
