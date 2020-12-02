@@ -81,7 +81,7 @@ const userController = {
           .then(user => {
             user.update({
               name: req.body.name,
-              image: file ? img.data.link : restaurant.image,
+              image: file ? img.data.link : user.image,
             })
           })
           .then((user) => {
