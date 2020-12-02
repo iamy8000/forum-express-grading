@@ -9,8 +9,8 @@ module.exports = {
           text: faker.lorem.sentence(),
           createdAt: new Date(),
           updatedAt: new Date(),
-          RestaurantId: Math.floor(Math.random() * 6) + 1,
-          UserId: Math.floor(Math.random() * 2) + 1
+          RestaurantId: Math.floor(Math.random() * 6) * 10  + 1,
+          UserId: Math.floor(Math.random() * 2) * 10 + 1
         })
       ), {});
 
