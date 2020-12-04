@@ -16,15 +16,26 @@
   <div class="col-md-8">
     <p>{{restaurant.description}}</p>
     <a href="/restaurants/{{restaurant.id}}/dashboard">
-      <button type="button" class="btn btn-primary">
+      <button type="button" class="btn-sm btn-primary">
         Dashboard
       </button>
     </a>
-    {{#if this.isFavorited }}
-    <form action="/favorite/{{this.id}}?_method=DELETE" method="POST"><button type="submit"
-        class="btn btn-danger">移除最愛</button></form>
+    {{#if isFavorited }}
+    <form action="/favorite/{{restaurant.id}}?_method=DELETE" method="POST" style="display: inline;">
+      <button type="submit" class="btn-sm btn-danger">移除最愛</button>
+    </form>
     {{else}}
-    <form action="/favorite/{{this.id}}" method="POST"><button type="submit" class="btn btn-primary">加到最愛</button>
+    <form action="/favorite/{{restaurant.id}}" method="POST" style="display: inline;">
+      <button type="submit" class="btn-sm btn-primary">加到最愛</button>
+    </form>
+    {{/if}}
+    {{#if isLiked }}
+    <form action="/like/{{restaurant.id}}?_method=DELETE" method="POST" style="display: inline;">
+      <button type="submit" class="btn-sm btn-danger">Unlike</button>
+    </form>
+    {{else}}
+    <form action="/like/{{restaurant.id}}" method="POST" style="display: inline;">
+      <button type="submit" class="btn-sm btn-primary">Like</button>
     </form>
     {{/if}}
   </div>
