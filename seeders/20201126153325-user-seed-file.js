@@ -11,7 +11,7 @@ module.exports = {
       name: 'root',
       createdAt: new Date(),
       updatedAt: new Date(),
-      image: `https://loremflickr.com/320/240/paris,girl/?random=${Math.random() * 100}`
+      image: `https://loremflickr.com/320/240/paris,girl/?lock=${Math.random() * 100}`
     }, {
       id: 11,
       email: 'user1@example.com',
@@ -20,7 +20,7 @@ module.exports = {
       name: 'user1',
       createdAt: new Date(),
       updatedAt: new Date(),
-      image: `https://loremflickr.com/320/240/paris,girl/?random=${Math.random() * 100}`
+      image: `https://loremflickr.com/320/240/paris,girl/?lock=${Math.random() * 100}`
     }, {
       id: 21,
       email: 'user2@example.com',
@@ -29,7 +29,7 @@ module.exports = {
       name: 'user2',
       createdAt: new Date(),
       updatedAt: new Date(),
-      image: `https://loremflickr.com/320/240/paris,girl/?random=${Math.random() * 100}`
+      image: `https://loremflickr.com/320/240/paris,girl/?lock=${Math.random() * 100}`
     }], {})
   },
   down: async (queryInterface, Sequelize) => {
