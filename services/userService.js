@@ -26,6 +26,12 @@ const userService = {
         })
     })
   },
+  editUser: (req, res, callback) => {
+    return User.findByPk(req.params.id, { raw: true })
+      .then(user => {
+        callback({ user: user })
+      })
+  }
 
 }
 
