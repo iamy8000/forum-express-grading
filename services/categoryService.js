@@ -10,7 +10,7 @@ const categoryService = {
       if (req.params.id) {
         Category.findByPk(req.params.id)
           .then((category) => {
-            return res.render('admin/categories', {
+            callback({
               categories: categories,
               category: category.toJSON()
             })
