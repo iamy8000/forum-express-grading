@@ -12,6 +12,8 @@ const Favorite = db.Favorite
 const Like = db.Like
 const Followship = db.Followship
 
+const userService = require('../services/userService')
+
 const userController = {
   signUpPage: (req, res) => {
     return res.render('signup')
@@ -52,18 +54,9 @@ const userController = {
     res.redirect('/signin')
   },
   getUser: (req, res) => {
-    Comment.findAll({
-      raw: true,
-      nest: true,
-      where: { UserId: req.params.id },
-      include: [Restaurant]
-    }).then(comments => {
-      return User.findByPk(req.params.id, { raw: true })
-        .then(user => {
-          return res.render('user/profile', { profile: user, comments: comments })
-        })
+    userService.getUser(req, res, (data) => {
+      return res.render('user/profile', data)
     })
-
   },
   editUser: (req, res) => {
     return User.findByPk(req.params.id, { raw: true })
