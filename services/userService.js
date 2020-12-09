@@ -31,6 +31,41 @@ const userService = {
       .then(user => {
         callback({ user: user })
       })
+  },
+  putUser: (req, res, callback) => {
+    if (!req.body.name) {
+      callback({ status: 'error', message: '請輸入name!' })
+      // req.flash('error_messages', "請輸入name!")
+      // return res.redirect('back')
+    }
+
+    const { file } = req
+    if (file) {
+      imgur.setClientID(IMGUR_CLIENT_ID);
+      imgur.upload(file.path, (err, img) => {
+        return User.findByPk(req.params.id)
+          .then(user => {
+            user.update({
+              name: req.body.name,
+              image: file ? img.data.link : user.image,
+            })
+          })
+          .then((user) => {
+            callback({ status: 'success', message: 'user was successfully to update' })
+          })
+      })
+    } else {
+      return User.findByPk(req.params.id)
+        .then(user => {
+          user.update({
+            name: req.body.name,
+            image: user.image
+          })
+        })
+        .then((user) => {
+          callback({ status: 'success', message: 'user was successfully to update' })
+        })
+    }
   }
 
 }
