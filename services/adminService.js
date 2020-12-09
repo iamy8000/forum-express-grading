@@ -8,6 +8,11 @@ const Category = db.Category
 const User = db.User
 
 const adminService = {
+  getUsers: (req, res, callback) => {
+    return User.findAll({ raw: true }).then(users => {
+      callback({ users: users })
+    })
+  },
   getRestaurants: (req, res, callback) => {
     return Restaurant.findAll({ raw: true, nest: true, include: [Category] }).then(restaurants => {
       callback({ restaurants: restaurants })

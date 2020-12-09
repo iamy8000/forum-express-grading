@@ -11,8 +11,8 @@ const adminService = require('../services/adminService')
 
 const adminController = {
   getUsers: (req, res) => {
-    return User.findAll({ raw: true }).then(users => {
-      return res.render('admin/users', { users })
+    adminService.getUsers(req, res, (data) => {
+      return res.render('admin/users', data)
     })
   },
   putUsers: (req, res) => {

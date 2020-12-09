@@ -5,6 +5,11 @@ const Category = db.Category
 const adminService = require('../../services/adminService')
 
 const adminController = {
+  getUsers: (req, res) => {
+    adminService.getUsers(req, res, (data) => {
+      return res.json(data)
+    })
+  },
   getRestaurants: (req, res) => {
     adminService.getRestaurants(req, res, (data) => {
       return res.json(data)
