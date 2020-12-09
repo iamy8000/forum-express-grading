@@ -16,22 +16,10 @@ const adminController = {
     })
   },
   putUsers: (req, res) => {
-    User.findByPk(req.params.id)
-      .then((user) => {
-        if (user.isAdmin) { //==true, user為管理者
-          return user.update({ isAdmin: false })
-            .then((user) => {
-              req.flash('success_messages', `${user.name} was successfully to update`)
-              res.redirect('/admin/users')
-            })
-        } else { //===false,user為路人
-          return user.update({ isAdmin: true })
-            .then((user) => {
-              req.flash('success_messages', `${user.name} was successfully to update`)
-              res.redirect('/admin/users')
-            })
-        }
-      })
+    adminService.putUser(req, res, (data) => {
+      req.flash('success_messages', data['message'])
+      return res.redirect('/admin/users')
+    })
   },
   getRestaurants: (req, res) => {
     adminService.getRestaurants(req, res, (data) => {

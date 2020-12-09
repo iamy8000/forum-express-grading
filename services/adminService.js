@@ -13,6 +13,22 @@ const adminService = {
       callback({ users: users })
     })
   },
+  putUser: (req, res, callback) => {
+    User.findByPk(req.params.id)
+      .then((user) => {
+        if (user.isAdmin) {
+          return user.update({ isAdmin: false })
+            .then((user) => {
+              callback({ status: 'success', message: `${user.name} was successfully to update` })
+            })
+        } else {
+          return user.update({ isAdmin: true })
+            .then((user) => {
+              callback({ status: 'success', message: `${user.name} was successfully to update` })
+            })
+        }
+      })
+  },
   getRestaurants: (req, res, callback) => {
     return Restaurant.findAll({ raw: true, nest: true, include: [Category] }).then(restaurants => {
       callback({ restaurants: restaurants })
