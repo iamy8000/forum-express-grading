@@ -42,6 +42,14 @@ const adminService = {
       callback({ restaurant: restaurant })
     })
   },
+  createRestaurant: (req, res, callback) => {
+    Category.findAll({
+      raw: true,
+      nest: true
+    }).then(categories => {
+      callback({ categories: categories })
+    })
+  },
   deleteRestaurant: (req, res, callback) => {
     return Restaurant.findByPk(req.params.id)
       .then((restaurant) => {

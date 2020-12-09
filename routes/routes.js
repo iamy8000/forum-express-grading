@@ -43,7 +43,7 @@ router.post('/comments', authenticated, commentController.postComment)
 router.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
 
 router.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants')) // 連到 /admin 頁面就轉到 /admin/restaurants
-router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)  // 在 /admin/restaurants 底下則交給 adminController.getRestaurants 處理
+router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants) 
 router.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
 router.post('/admin/restaurants', authenticatedAdmin, upload.single('image'), adminController.postRestaurant)
 router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
