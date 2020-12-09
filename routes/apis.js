@@ -45,5 +45,6 @@ router.post('/signup', userController.signUp)
 router.get('/users/:id', authenticated, userController.getUser)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.put('/users/:id', upload.single('image'), authenticated, userController.putUser)
+router.post('/favorite/:restaurantId', authenticated, userController.addFavorite)
 
 module.exports = router

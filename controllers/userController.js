@@ -74,13 +74,11 @@ const userController = {
     })
   },
   addFavorite: (req, res) => {
-    return Favorite.create({
-      UserId: req.user.id,
-      RestaurantId: req.params.restaurantId
-    })
-      .then((restaurant) => {
+    userService.addFavorite(req, res, (data) => {
+      if (data['status'] === 'success') {
         return res.redirect('back')
-      })
+      }
+    })
   },
   removeFavorite: (req, res) => {
     return Favorite.findOne({

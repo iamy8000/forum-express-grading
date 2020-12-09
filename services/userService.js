@@ -35,8 +35,6 @@ const userService = {
   putUser: (req, res, callback) => {
     if (!req.body.name) {
       callback({ status: 'error', message: '請輸入name!' })
-      // req.flash('error_messages', "請輸入name!")
-      // return res.redirect('back')
     }
 
     const { file } = req
@@ -66,6 +64,15 @@ const userService = {
           callback({ status: 'success', message: 'user was successfully to update' })
         })
     }
+  },
+  addFavorite: (req, res, callback) => {
+    return Favorite.create({
+      UserId: req.user.id,
+      RestaurantId: req.params.restaurantId
+    })
+      .then((restaurant) => {
+        callback({ status: 'success', message: '' })
+      })
   }
 
 }
