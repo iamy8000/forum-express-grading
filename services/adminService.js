@@ -50,15 +50,6 @@ const adminService = {
       callback({ categories: categories })
     })
   },
-  deleteRestaurant: (req, res, callback) => {
-    return Restaurant.findByPk(req.params.id)
-      .then((restaurant) => {
-        restaurant.destroy()
-          .then((restaurant) => {
-            callback({ status: 'success', message: '' })
-          })
-      })
-  },
   postRestaurant: (req, res, callback) => {
     if (!req.body.name) {
       return callback({ status: 'error', message: "name didn't exist" })
@@ -135,6 +126,28 @@ const adminService = {
             })
         })
     }
+  },
+  editRestaurant: (req, res, callback) => {
+    Category.findAll({
+      raw: true,
+      nest: true
+    }).then(categories => {
+      return Restaurant.findByPk(req.params.id).then(restaurant => {
+        callback({
+          restaurant: restaurant.toJSON(),
+          categories: categories
+        })
+      })
+    })
+  },
+  deleteRestaurant: (req, res, callback) => {
+    return Restaurant.findByPk(req.params.id)
+      .then((restaurant) => {
+        restaurant.destroy()
+          .then((restaurant) => {
+            callback({ status: 'success', message: '' })
+          })
+      })
   }
 }
 
