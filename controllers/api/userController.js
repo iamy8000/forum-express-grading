@@ -80,6 +80,16 @@ let userController = {
     userService.removeFavorite(req, res, (data) => {
       return res.json(data)
     })
+  },
+  likeRest: (req, res) => {
+    userService.likeRest(req, res, (data) => {
+      return res.json(data)
+    })
+  },
+  unlikeRest: (req, res) => {
+    userService.unlikeRest(req, res, (data) => {
+      return res.json(data)
+    })
   }
 }
 

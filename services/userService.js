@@ -84,7 +84,32 @@ const userService = {
       .then((favorite) => {
         favorite.destroy()
           .then((restaurant) => {
-            callback({status: 'success', message: ''})
+            callback({ status: 'success', message: '' })
+          })
+      })
+  },
+  likeRest: (req, res, callback) => {
+    const user = helper.getUser(req)
+    return Like.create({
+      UserId: user.id,
+      RestaurantId: req.params.restaurantId
+    })
+      .then(() => {
+        callback({ status: 'success', message: '' })
+      })
+  },
+  unlikeRest: (req, res, callback) => {
+    const user = helper.getUser(req)
+    return Like.findOne({
+      where: {
+        UserId: user.id,
+        RestaurantId: req.params.restaurantId
+      }
+    })
+      .then(like => {
+        like.destroy()
+          .then(() => {
+            callback({ status: 'success', message: '' })
           })
       })
   }

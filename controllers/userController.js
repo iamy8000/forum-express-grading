@@ -81,36 +81,25 @@ const userController = {
     })
   },
   removeFavorite: (req, res) => {
-    userService.removeFavorite(req, res, (data)=> {
-      if(data['status']==='success'){
+    userService.removeFavorite(req, res, (data) => {
+      if (data['status'] === 'success') {
         return res.redirect('back')
       }
     })
   },
   likeRest: (req, res) => {
-    const user = helper.getUser(req)
-    return Like.create({
-      UserId: user.id,
-      RestaurantId: req.params.restaurantId
-    })
-      .then(() => {
+    userService.likeRest(req, res, (data) => {
+      if (data['status'] === 'success') {
         return res.redirect('back')
-      })
-  },
-  unlikeRest: (req, res) => {
-    const user = helper.getUser(req)
-    return Like.findOne({
-      where: {
-        UserId: user.id,
-        RestaurantId: req.params.restaurantId
       }
     })
-      .then(like => {
-        like.destroy()
-          .then(() => {
-            return res.redirect('back')
-          })
-      })
+  },
+  unlikeRest: (req, res) => {
+    userService.unlikeRest(req, res, (data) => {
+      if (data['status'] === 'success') {
+        return res.redirect('back')
+      }
+    })
   },
   getTopUser: (req, res) => {
     return User.findAll({
