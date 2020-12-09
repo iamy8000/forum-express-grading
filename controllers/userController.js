@@ -81,18 +81,11 @@ const userController = {
     })
   },
   removeFavorite: (req, res) => {
-    return Favorite.findOne({
-      where: {
-        UserId: req.user.id,
-        RestaurantId: req.params.restaurantId
+    userService.removeFavorite(req, res, (data)=> {
+      if(data['status']==='success'){
+        return res.redirect('back')
       }
     })
-      .then((favorite) => {
-        favorite.destroy()
-          .then((restaurant) => {
-            return res.redirect('back')
-          })
-      })
   },
   likeRest: (req, res) => {
     const user = helper.getUser(req)

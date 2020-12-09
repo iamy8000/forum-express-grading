@@ -73,6 +73,20 @@ const userService = {
       .then((restaurant) => {
         callback({ status: 'success', message: '' })
       })
+  },
+  removeFavorite: (req, res, callback) => {
+    return Favorite.findOne({
+      where: {
+        UserId: req.user.id,
+        RestaurantId: req.params.restaurantId
+      }
+    })
+      .then((favorite) => {
+        favorite.destroy()
+          .then((restaurant) => {
+            callback({status: 'success', message: ''})
+          })
+      })
   }
 
 }
