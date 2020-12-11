@@ -20,6 +20,10 @@ const adminController = require('../controllers/api/adminController.js')
 const categoryController = require('../controllers/api/categoryController')
 const userController = require('../controllers/api/userController')
 const commentController = require('../controllers/api/commentController')
+const restController = require('../controllers/api/restController')
+
+router.get('/restaurants', authenticated, restController.getRestaurants)
+
 
 router.get('/admin', authenticated, authenticatedAdmin, (req, res) => res.redirect('/api/admin/restaurants')) // 連到 /admin 頁面就轉到 /admin/restaurants
 router.get('/admin/restaurants', authenticated, authenticatedAdmin, adminController.getRestaurants)
