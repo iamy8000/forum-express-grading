@@ -17,25 +17,9 @@ const restController = {
     })
   },
   getDashboard: (req, res) => {
-    return Promise.all([
-      Comment.findAndCountAll({
-        where: { RestaurantId: req.params.id },
-        include: [Restaurant],
-      }),
-      Restaurant.findByPk(req.params.id, {
-        include: [Category]
-      }),
-      Favorite.findAndCountAll({
-        where: { RestaurantId: req.params.id },
-      })
-    ])
-      .then(([comment, restaurant, favorite]) => {
-        return res.render('restDashboard', {
-          comment: comment,
-          restaurant: restaurant.toJSON(),
-          favorite: favorite
-        })
-      })
+    restService.getDashboard(req, res, (data) => {
+      return res.render('restDashboard', data)
+    })
   },
   getTopRest: (req, res) => {
     return Restaurant.findAll({

@@ -101,6 +101,27 @@ let restService = {
       })
     })
   },
+  getDashboard: (req, res, callback) => {
+    return Promise.all([
+      Comment.findAndCountAll({
+        where: { RestaurantId: req.params.id },
+        include: [Restaurant],
+      }),
+      Restaurant.findByPk(req.params.id, {
+        include: [Category]
+      }),
+      Favorite.findAndCountAll({
+        where: { RestaurantId: req.params.id },
+      })
+    ])
+      .then(([comment, restaurant, favorite]) => {
+        callback({
+          comment: comment,
+          restaurant: restaurant.toJSON(),
+          favorite: favorite
+        })
+      })
+  },
 }
 
 module.exports = restService
