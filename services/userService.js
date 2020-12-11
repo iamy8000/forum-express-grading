@@ -127,7 +127,16 @@ const userService = {
       users = users.sort((a, b) => b.FollowerCount - a.FollowerCount)
       return callback({ users: users })
     })
-  }
+  },
+  addFollowing: (req, res, callback) => {
+    return Followship.create({
+      followerId: req.user.id,
+      followingId: req.params.userId
+    })
+      .then((followship) => {
+        return callback({ status: 'success', message: '' })
+      })
+  },
 }
 
 module.exports = userService
