@@ -42,6 +42,7 @@ router.delete('/admin/categories/:id', authenticated, authenticatedAdmin, catego
 router.post('/signin', userController.signIn)
 router.post('/signup', userController.signUp)
 
+router.get('/users/top', authenticated, userController.getTopUser)
 router.get('/users/:id', authenticated, userController.getUser)
 router.get('/users/:id/edit', authenticated, userController.editUser)
 router.put('/users/:id', upload.single('image'), authenticated, userController.putUser)
