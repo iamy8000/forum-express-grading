@@ -19,7 +19,7 @@ const authenticatedAdmin = (req, res, next) => {
 const adminController = require('../controllers/api/adminController.js')
 const categoryController = require('../controllers/api/categoryController')
 const userController = require('../controllers/api/userController')
-const userService = require('../services/userService')
+const commentController = require('../controllers/api/commentController')
 
 router.get('/admin', authenticated, authenticatedAdmin, (req, res) => res.redirect('/api/admin/restaurants')) // 連到 /admin 頁面就轉到 /admin/restaurants
 router.get('/admin/restaurants', authenticated, authenticatedAdmin, adminController.getRestaurants)
@@ -54,5 +54,8 @@ router.delete('/like/:restaurantId', authenticated, userController.unlikeRest)
 
 router.post('/following/:userId', authenticated, userController.addFollowing)
 router.delete('/following/:userId', authenticated, userController.removeFollowing)
+
+router.post('/comments', authenticated, commentController.postComment)
+router.delete('/comments/:id', authenticated, authenticatedAdmin, commentController.deleteComment)
 
 module.exports = router
