@@ -21,6 +21,11 @@ let restController = {
       return res.json(data)
     })
   },
+  getTopRest: (req, res) => {
+    restService.getTopRest(req, res, (data) => {
+      return res.json(data)
+    })
+  }
 }
 
 module.exports = restController
